@@ -36,6 +36,7 @@ func pick_random_direction():
 func _physics_process(delta):
 	var new_position_on_map = tilemap.position_on_map(self)
 	if(new_position_on_map != position_on_map):
+		# TODO: Am I next to destination?
 		if(tilemap.is_on_intersection(self)):
 			direction = pick_random_direction()
 			# TODO: Check direction has road

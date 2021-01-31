@@ -132,7 +132,7 @@ __meta__ = {
 }
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 367.904, 272.011 )
+position = Vector2( 366.651, 270.131 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]

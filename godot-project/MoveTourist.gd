@@ -16,7 +16,7 @@ var compass_directions = [N, S, E, W]
 
 const STOOD_STILL = Vector2(0,0)
 
-var list_of_directions = ["south","left","straight","right","west"]
+export var list_of_directions = [] #["south","left","straight","right","west"]
 
 var destination = Vector2(18,11)
 

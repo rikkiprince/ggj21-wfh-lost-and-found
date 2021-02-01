@@ -144,6 +144,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 margin_left = 132.0
 margin_top = 417.0
 margin_right = 861.0

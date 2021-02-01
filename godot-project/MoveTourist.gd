@@ -18,16 +18,13 @@ const STOOD_STILL = Vector2(0,0)
 
 var list_of_directions = ["south","left","straight","right","west"]
 
+var destination = Vector2(18,11)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	position_on_map = tilemap.position_on_map(self)
 	direction = E
-	randomize()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func pick_random_direction():
@@ -43,23 +40,30 @@ func relative_to_compass(current_direction, relative_turn):
 			return current_direction
 
 func get_next_direction():
-	var direction_text = list_of_directions.pop_front()
+	var direction_text = list_of_directions.pop_front().to_lower()
 	if(["north","east","south","west"].has(direction_text)):
 		print("Got compass direction: "+direction_text)
 		var new_compass_direction = direction_text[0].to_upper()
 		if(new_compass_direction in self):
 			return self.get(new_compass_direction)
 		else:
-			print("ERROR: Could not find compass direction "+str(new_compass_direction))
+			print("ERROR: Could not find vector for compass direction "+str(new_compass_direction))
 	elif(["left","right","straight"].has(direction_text)):
 		return relative_to_compass(direction, direction_text)
+	else:
+		print("WARNING: Unknown direction "+str(direction_text))
 	
 	return STOOD_STILL # pick_random_direction()
 
 func _physics_process(delta):
 	var new_position_on_map = tilemap.position_on_map(self)
 	if(new_position_on_map != position_on_map):
-		# TODO: Am I next to destination?
+		# Am I next to destination?
+		if(new_position_on_map.distance_to(destination) <= 1):
+			print("SUCCESS: Made it to "+str(destination))
+			direction = STOOD_STILL
+		
+		# Is tourist now on an intersection?
 		if(tilemap.is_on_intersection(self)):
 			direction = get_next_direction()
 			# TODO: Check direction has road

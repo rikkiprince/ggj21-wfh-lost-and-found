@@ -197,5 +197,5 @@ margin_right = 715.0
 margin_bottom = 172.0
 texture = ExtResource( 2 )
 flip_h = true
-[connection signal="text_entered" from="PanelContainer/GridContainer/VBoxContainer/Speech" to="PanelContainer/GridContainer/VBoxContainer/Conversation" method="_on_Speech_text_entered"]
 [connection signal="text_entered" from="PanelContainer/GridContainer/VBoxContainer/Speech" to="PanelContainer/GridContainer/VBoxContainer/Speech" method="_on_Speech_text_entered"]
+[connection signal="text_entered" from="PanelContainer/GridContainer/VBoxContainer/Speech" to="PanelContainer/GridContainer/VBoxContainer/Conversation" method="_on_Speech_text_entered"]

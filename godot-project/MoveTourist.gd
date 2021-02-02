@@ -8,6 +8,8 @@ onready var tilemap = get_parent().get_node("TileMap")
 var position_on_map = Vector2()
 var direction = Vector2()
 
+signal tourist_arrived(tourist)
+
 const N = Vector2(0,-1)
 const S = Vector2(0,1)
 const E = Vector2(1,0)
@@ -66,6 +68,7 @@ func _physics_process(delta):
 		if(new_position_on_map.distance_to(destination) <= 1):
 			print("SUCCESS: Made it to "+str(destination))
 			direction = STOOD_STILL
+			emit_signal("tourist_arrived", self)
 		
 		# Is tourist now on an intersection?
 		if(tilemap.is_on_intersection(self)):

@@ -1,8 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Lost and Found v0.1 tileset.png" type="Texture" id=1]
-[ext_resource path="res://ConversationPanel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Tourist.tscn" type="PackedScene" id=3]
 [ext_resource path="res://TileMap.gd" type="Script" id=4]
 [ext_resource path="res://Level1.gd" type="Script" id=5]
 
@@ -132,13 +130,3 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Tourist1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 379.856, 258.52 )
-list_of_directions = [ "south", "left", "straight" ]
-
-[node name="ConversationPanel" parent="." instance=ExtResource( 2 )]
-margin_left = 132.0
-margin_top = 425.0
-margin_right = 861.0
-margin_bottom = 603.0

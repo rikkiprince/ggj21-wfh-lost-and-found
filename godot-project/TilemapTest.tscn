@@ -138,3 +138,7 @@ position = Vector2( 379.856, 258.52 )
 list_of_directions = [ "south", "left", "straight" ]
 
 [node name="ConversationPanel" parent="." instance=ExtResource( 2 )]
+margin_left = 132.0
+margin_top = 425.0
+margin_right = 861.0
+margin_bottom = 603.0

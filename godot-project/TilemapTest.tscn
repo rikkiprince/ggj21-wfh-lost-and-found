@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Lost and Found v0.1 tileset.png" type="Texture" id=1]
-[ext_resource path="res://tourist1.png" type="Texture" id=2]
+[ext_resource path="res://ConversationPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tourist.tscn" type="PackedScene" id=3]
 [ext_resource path="res://TileMap.gd" type="Script" id=4]
 [ext_resource path="res://Level1.gd" type="Script" id=5]
-[ext_resource path="res://Conversation.gd" type="Script" id=6]
-[ext_resource path="res://Speech.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Lost and Found v0.1 tileset.png 0"
@@ -139,70 +137,4 @@ __meta__ = {
 position = Vector2( 379.856, 258.52 )
 list_of_directions = [ "south", "left", "straight" ]
 
-[node name="ConversationPanel" type="PanelContainer" parent="."]
-margin_left = 132.0
-margin_top = 425.0
-margin_right = 861.0
-margin_bottom = 603.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ConversationPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 722.0
-margin_bottom = 171.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TouristAvatar" type="TextureRect" parent="ConversationPanel/HBoxContainer"]
-margin_right = 67.0
-margin_bottom = 164.0
-size_flags_horizontal = 3
-texture = ExtResource( 2 )
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ConversationPanel/HBoxContainer"]
-margin_left = 71.0
-margin_right = 643.0
-margin_bottom = 164.0
-size_flags_horizontal = 7
-size_flags_vertical = 3
-size_flags_stretch_ratio = 8.5
-
-[node name="ConversationOutput" type="RichTextLabel" parent="ConversationPanel/HBoxContainer/VBoxContainer"]
-margin_right = 572.0
-margin_bottom = 136.0
-focus_mode = 2
-size_flags_vertical = 3
-text = "Hello there!
-I'm looking for a pub.
-Could you tell me how to get to one?"
-scroll_active = false
-selection_enabled = true
-script = ExtResource( 6 )
-
-[node name="SpeechInput" type="LineEdit" parent="ConversationPanel/HBoxContainer/VBoxContainer"]
-margin_top = 140.0
-margin_right = 572.0
-margin_bottom = 164.0
-size_flags_horizontal = 7
-size_flags_stretch_ratio = 7.02
-placeholder_text = "give directions"
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerAvatar" type="TextureRect" parent="ConversationPanel/HBoxContainer"]
-margin_left = 647.0
-margin_right = 715.0
-margin_bottom = 164.0
-size_flags_horizontal = 3
-texture = ExtResource( 2 )
-stretch_mode = 5
-flip_h = true
-[connection signal="text_entered" from="ConversationPanel/HBoxContainer/VBoxContainer/SpeechInput" to="ConversationPanel/HBoxContainer/VBoxContainer/SpeechInput" method="_on_Speech_text_entered"]
-[connection signal="text_entered" from="ConversationPanel/HBoxContainer/VBoxContainer/SpeechInput" to="ConversationPanel/HBoxContainer/VBoxContainer/ConversationOutput" method="_on_Speech_text_entered"]
+[node name="ConversationPanel" parent="." instance=ExtResource( 2 )]

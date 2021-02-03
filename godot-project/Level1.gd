@@ -30,7 +30,7 @@ func launch_conversation_panel():
 	# I'm looking for a pub.
 	# Could you tell me how to get to one?
 	add_child(conversation_node)
-	conversation_node.set_conversation_output("Hello there!\nI'm looking for a pub.\nCould you tell me how to get to one?")
+	conversation_node.set_conversation_output("Hello there!\nI'm looking for a [shake rate=5 level=10]pub[/shake].\nCould you tell me how to get to one?")
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()

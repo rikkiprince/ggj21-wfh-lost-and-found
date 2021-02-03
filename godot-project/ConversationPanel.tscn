@@ -42,6 +42,7 @@ margin_right = 572.0
 margin_bottom = 136.0
 focus_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 scroll_active = false
 selection_enabled = true
 script = ExtResource( 1 )

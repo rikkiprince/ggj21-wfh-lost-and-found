@@ -1,10 +1,5 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 onready var tilemap = get_node("TileMap")
 
 var tourist_scene = preload("res://Tourist.tscn")
@@ -35,15 +30,7 @@ func launch_conversation_panel():
 	# I'm looking for a pub.
 	# Could you tell me how to get to one?
 	add_child(conversation_node)
+	conversation_node.set_conversation_output("Hello there!\nI'm looking for a pub.\nCould you tell me how to get to one?")
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-# TODO: Set up game data specific to Level 1
-# e.g. potential destination co-ords
-#      tourist starting points?

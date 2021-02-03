@@ -24,9 +24,8 @@ var destination = Vector2(18,11)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
 	position_on_map = tilemap.position_on_map(self)
-	direction = E
+	direction = STOOD_STILL
 
 
 func pick_random_direction():
@@ -72,6 +71,7 @@ func _physics_process(delta):
 		
 		# Is tourist now on an intersection?
 		if(tilemap.is_on_intersection(self)):
+			print("I'm at an intersection...")
 			direction = get_next_direction()
 			# TODO: Check direction has road
 			# TODO: If possible, don't U-turn

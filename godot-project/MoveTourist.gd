@@ -43,7 +43,7 @@ func relative_to_compass(current_direction, relative_turn):
 func get_next_direction():
 	var direction_text = list_of_directions.pop_front()
 	if(direction_text == null or direction_text == ""):
-		return STOOD_STILL
+		return STOOD_STILL # pick_random_direction() ?
 	
 	direction_text = direction_text.to_lower()
 	if(["north","east","south","west"].has(direction_text)):
@@ -59,6 +59,9 @@ func get_next_direction():
 		print("WARNING: Unknown direction "+str(direction_text))
 	
 	return STOOD_STILL # pick_random_direction()
+
+func kickstart():
+	direction = get_next_direction()
 
 func _physics_process(delta):
 	var new_position_on_map = tilemap.position_on_map(self)

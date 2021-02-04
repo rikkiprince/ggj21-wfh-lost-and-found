@@ -24,6 +24,8 @@ func is_on_intersection(tourist):
 		return true
 	return false
 
+func name_of_tile(tile_position):
+	return tile_set.tile_get_name(get_cellv(tile_position))
 
 func position_on_map(tourist):
 	return world_to_map(tourist.position)

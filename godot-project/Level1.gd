@@ -14,8 +14,8 @@ func new_tourist():
 	var starting_location = select_tourist_starting_location()
 	print("Starting at: "+str(starting_location))
 	var destination_location = select_destination()
-	place_new_tourist_at(starting_location, destination_location)
-	launch_conversation_panel(starting_location, destination_location)
+	var tourist = place_new_tourist_at(starting_location, destination_location)
+	launch_conversation_panel(tourist, destination_location)
 
 func place_new_tourist_at(starting_location, destination_cell):
 	var world_coords = tilemap.map_to_world(starting_location)
@@ -25,13 +25,15 @@ func place_new_tourist_at(starting_location, destination_cell):
 	tourist_node.destination = destination_cell
 	tourist_node.connect("tourist_arrived", self, "_on_Tourist_tourist_arrived")
 	add_child(tourist_node)
+	return tourist_node
 
-func launch_conversation_panel(tourist_starting_location, destination_location):
+func launch_conversation_panel(tourist, destination_location):
 	var conversation_node = conversation_panel_scene.instance()
 	conversation_node.set_position(Vector2(132,425))
-	if(tourist_starting_location.y > 11):
+	if(tourist.position.y > 400):
 		conversation_node.set_position(Vector2(132,0))
 	add_child(conversation_node)
+	conversation_node.tourist = tourist
 	conversation_node.set_conversation_output("Hello there!\nI'm looking for [shake rate=5 level=10]the "+tilemap.name_of_tile(destination_location)+"[/shake].\nCould you tell me how to get there?")
 
 func _on_Tourist_tourist_arrived(tourist):
@@ -54,8 +56,7 @@ func select_tourist_starting_location():
 	road_cells += tilemap.get_used_cells_by_id(Tiles.VERTICAL_ROAD)
 	
 	var selected_cell = road_cells[randi() % road_cells.size()]
-	#return Vector2(selected_cell.x, selected_cell.y)
-	return Vector2(11,8)
+	return Vector2(selected_cell.x, selected_cell.y)
 
 func select_destination():
 	var destination_cells = tilemap.get_used_cells_by_id(Tiles.HOSPITAL_ENTRANCE)

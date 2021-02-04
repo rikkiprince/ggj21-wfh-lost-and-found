@@ -38,6 +38,7 @@ func launch_conversation_panel(tourist, destination_location):
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()
+	new_tourist()
 
 enum Tiles {
 	HORIZONTAL_ROAD,

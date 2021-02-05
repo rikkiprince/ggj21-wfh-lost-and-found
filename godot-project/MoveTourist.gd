@@ -50,6 +50,8 @@ func relative_to_screen(current_direction, relative_direction):
 			return N
 		"down":
 			return S
+		"straight":
+			print("Which way is straight? I'm stood still!")
 		_:
 			return current_direction
 

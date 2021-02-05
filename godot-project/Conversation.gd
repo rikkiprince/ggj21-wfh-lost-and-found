@@ -20,5 +20,7 @@ func _on_Speech_text_entered(new_text):
 		conversation_panel.queue_free()
 
 func animate_key_words(new_text):
-	new_text = new_text.replacen("left", "[shake]left[/shake]")
+	var regex = RegEx.new()
+	regex.compile("(left|right|straight|up|down|north|east|south|west)")
+	new_text = regex.sub(new_text, "[shake]$1[/shake]", true)
 	return new_text

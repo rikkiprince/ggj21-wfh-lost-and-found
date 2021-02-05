@@ -40,7 +40,7 @@ func relative_to_compass(current_direction, relative_turn):
 		_:
 			return current_direction
 
-func relative_to_screen(current_direction, relative_direction):
+func screen_relative_to_compass(current_direction, relative_direction):
 	match relative_direction.to_lower():
 		"left":
 			return W
@@ -55,11 +55,7 @@ func relative_to_screen(current_direction, relative_direction):
 		_:
 			return current_direction
 
-func get_next_direction():
-	var direction_text = list_of_directions.pop_front()
-	if(direction_text == null or direction_text == ""):
-		return STOOD_STILL # pick_random_direction() ?
-	
+func convert_direction_text_to_vector(current_direction, direction_text):
 	direction_text = direction_text.to_lower()
 	if(["north","east","south","west"].has(direction_text)):
 		print("Got compass direction: "+direction_text)
@@ -70,16 +66,33 @@ func get_next_direction():
 			print("ERROR: Could not find vector for compass direction "+str(new_compass_direction))
 	elif(["left","right","straight","up","down"].has(direction_text)):
 		if(direction == STOOD_STILL):
-			return relative_to_screen(direction, direction_text)
+			return screen_relative_to_compass(current_direction, direction_text)
 		else:
-			return relative_to_compass(direction, direction_text)
+			return relative_to_compass(current_direction, direction_text)
 	else:
 		print("WARNING: Unknown direction "+str(direction_text))
+
+func get_next_direction(current_direction):
+	var direction_text = list_of_directions.pop_front()
+	if(direction_text == null or direction_text == ""):
+		return STOOD_STILL # pick_random_direction() ?
+	
+	var new_direction = convert_direction_text_to_vector(current_direction, direction_text)
+	if(next_cell_valid(new_direction)):
+		return new_direction
+	else:
+		print("New direction "+str(new_direction)+" is not possible.")
 	
 	return STOOD_STILL # pick_random_direction()
 
+func next_cell_valid(new_direction):
+	var current_cell = tilemap.position_on_map(self)
+	var new_cell = current_cell + new_direction
+	var name_of_next_cell = tilemap.name_of_tile(new_cell)
+	return ["HorizontalRoad", "VerticalRoad"].has(name_of_next_cell)
+
 func kickstart():
-	direction = get_next_direction()
+	direction = get_next_direction(direction)
 
 func _physics_process(delta):
 	var new_position_on_map = tilemap.position_on_map(self)
@@ -93,7 +106,7 @@ func _physics_process(delta):
 		# Is tourist now on an intersection?
 		if(tilemap.is_on_intersection(self)):
 			print("I'm at an intersection...")
-			direction = get_next_direction()
+			direction = get_next_direction(direction)
 			# TODO: Check direction has road
 			# TODO: If possible, don't U-turn
 			print("Changed direction: "+str(direction))

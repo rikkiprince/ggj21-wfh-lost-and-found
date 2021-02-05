@@ -6,3 +6,6 @@ var tourist
 
 func set_conversation_output(text):
 	conversation_output_label.bbcode_text = text
+
+func _ready():
+	get_node("HBoxContainer/VBoxContainer/SpeechInput").grab_focus()

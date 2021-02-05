@@ -40,6 +40,19 @@ func relative_to_compass(current_direction, relative_turn):
 		_:
 			return current_direction
 
+func relative_to_screen(current_direction, relative_direction):
+	match relative_direction.to_lower():
+		"left":
+			return W
+		"right":
+			return E
+		"up":
+			return N
+		"down":
+			return S
+		_:
+			return current_direction
+
 func get_next_direction():
 	var direction_text = list_of_directions.pop_front()
 	if(direction_text == null or direction_text == ""):
@@ -53,8 +66,11 @@ func get_next_direction():
 			return self.get(new_compass_direction)
 		else:
 			print("ERROR: Could not find vector for compass direction "+str(new_compass_direction))
-	elif(["left","right","straight"].has(direction_text)):
-		return relative_to_compass(direction, direction_text)
+	elif(["left","right","straight","up","down"].has(direction_text)):
+		if(direction == STOOD_STILL):
+			return relative_to_screen(direction, direction_text)
+		else:
+			return relative_to_compass(direction, direction_text)
 	else:
 		print("WARNING: Unknown direction "+str(direction_text))
 	

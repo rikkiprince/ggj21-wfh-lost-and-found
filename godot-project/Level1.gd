@@ -5,9 +5,18 @@ onready var tilemap = get_node("TileMap")
 var tourist_scene = preload("res://Tourist.tscn")
 var conversation_panel_scene = preload("res://ConversationPanel.tscn")
 
+var rng = RandomNumberGenerator.new()
+var s
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
+	#randomize()
+	#var new_seed = randi()
+	#print("SEED: "+str(new_seed))
+	#rng.randomize()
+	rng.seed = 1366326005678505183 #1882199055
+	s = rng.seed
+	print("SEED: "+str(s))
 	new_tourist()
 
 func new_tourist():
@@ -29,12 +38,14 @@ func place_new_tourist_at(starting_location, destination_cell):
 
 func launch_conversation_panel(tourist, destination_location):
 	var conversation_node = conversation_panel_scene.instance()
+	conversation_node.connect("directions_submitted", self, "_on_ConversationPanel_directions_submitted")
 	conversation_node.set_position(Vector2(132,425))
 	if(tourist.position.y > 400):
 		conversation_node.set_position(Vector2(132,0))
 	add_child(conversation_node)
 	conversation_node.tourist = tourist
-	conversation_node.set_conversation_output("Hello there!\nI'm looking for [shake rate=5 level=10]the "+tilemap.name_of_tile(destination_location)+"[/shake].\nCould you tell me how to get there?")
+	var destination_name = tilemap.name_of_tile(destination_location)
+	conversation_node.set_conversation_output(destination_name, destination_location, s)
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()
@@ -66,3 +77,31 @@ func select_destination():
 	var selected_cell = destination_cells[randi() % destination_cells.size()]
 	print("DESTINATION: "+str(selected_cell.x) + "," + str(selected_cell.y) + " : " + tilemap.name_of_tile(selected_cell))
 	return selected_cell
+
+func _on_ConversationPanel_directions_submitted(body):
+	log_to_firebase(body)
+
+func log_to_firebase(body):
+	print(body)
+	print(JSON.print(body))
+	var json_body = JSON.print(body)
+	
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.connect("request_completed", self, "_on_HTTPRequest_request_completed")
+	var error = http_request.request(
+		"https://lost-and-found-a3a8b-default-rtdb.firebaseio.com/test.json",
+		[],
+		true,
+		HTTPClient.METHOD_POST,
+		json_body
+	)
+	if(error != OK):
+		print("ERROR sending HTTP")
+		push_error("An error occred in the HTTP request.")
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	print("result: "+str(result))
+	print("code: "+str(response_code))
+	print("headers: "+str(headers))
+	print(body)

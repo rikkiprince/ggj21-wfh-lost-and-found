@@ -15,6 +15,8 @@ func _on_Speech_text_entered(new_text):
 	
 	if(["bye","good luck","arrive","destination"].has(new_text)):
 		print("End of directions")
+		print(directions)
+		conversation_panel.directions_submitted(directions)
 		conversation_panel.tourist.list_of_directions = directions
 		conversation_panel.tourist.kickstart()
 		conversation_panel.queue_free()

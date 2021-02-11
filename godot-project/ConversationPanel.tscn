@@ -67,5 +67,5 @@ size_flags_horizontal = 3
 texture = ExtResource( 3 )
 stretch_mode = 5
 flip_h = true
-[connection signal="text_entered" from="HBoxContainer/VBoxContainer/SpeechInput" to="HBoxContainer/VBoxContainer/ConversationOutput" method="_on_Speech_text_entered"]
 [connection signal="text_entered" from="HBoxContainer/VBoxContainer/SpeechInput" to="HBoxContainer/VBoxContainer/SpeechInput" method="_on_Speech_text_entered"]
+[connection signal="text_entered" from="HBoxContainer/VBoxContainer/SpeechInput" to="HBoxContainer/VBoxContainer/ConversationOutput" method="_on_Speech_text_entered"]

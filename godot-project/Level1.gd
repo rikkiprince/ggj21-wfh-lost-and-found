@@ -67,14 +67,16 @@ func select_tourist_starting_location():
 	var road_cells = tilemap.get_used_cells_by_id(Tiles.HORIZONTAL_ROAD)
 	road_cells += tilemap.get_used_cells_by_id(Tiles.VERTICAL_ROAD)
 	
-	var selected_cell = road_cells[randi() % road_cells.size()]
+	var selected_cell = road_cells[rng.randi() % road_cells.size()]
 	return Vector2(selected_cell.x, selected_cell.y)
 
 func select_destination():
 	var destination_cells = tilemap.get_used_cells_by_id(Tiles.HOSPITAL_ENTRANCE)
 	destination_cells += tilemap.get_used_cells_by_id(Tiles.PARK_ENTRANCE)
 	
-	var selected_cell = destination_cells[randi() % destination_cells.size()]
+	var random_index = rng.randi() % destination_cells.size()
+	print("random_index: "+str(random_index))
+	var selected_cell = destination_cells[random_index]
 	print("DESTINATION: "+str(selected_cell.x) + "," + str(selected_cell.y) + " : " + tilemap.name_of_tile(selected_cell))
 	return selected_cell
 

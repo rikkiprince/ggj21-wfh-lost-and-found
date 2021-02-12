@@ -92,7 +92,7 @@ func log_to_firebase(body):
 	add_child(http_request)
 	http_request.connect("request_completed", self, "_on_HTTPRequest_request_completed")
 	var error = http_request.request(
-		"https://lost-and-found-a3a8b-default-rtdb.firebaseio.com/test.json",
+		"https://lost-and-found-a3a8b-default-rtdb.firebaseio.com/attempts.json",
 		[],
 		true,
 		HTTPClient.METHOD_POST,

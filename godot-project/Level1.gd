@@ -24,7 +24,7 @@ func new_tourist():
 	print("Starting at: "+str(starting_location))
 	var destination_location = select_destination()
 	var tourist = place_new_tourist_at(starting_location, destination_location)
-	launch_conversation_panel(tourist, destination_location)
+	launch_conversation_panel(tourist, starting_location, destination_location)
 
 func place_new_tourist_at(starting_location, destination_cell):
 	var world_coords = tilemap.map_to_world(starting_location)
@@ -36,7 +36,7 @@ func place_new_tourist_at(starting_location, destination_cell):
 	add_child(tourist_node)
 	return tourist_node
 
-func launch_conversation_panel(tourist, destination_location):
+func launch_conversation_panel(tourist, starting_location, destination_location):
 	var conversation_node = conversation_panel_scene.instance()
 	conversation_node.connect("directions_submitted", self, "_on_ConversationPanel_directions_submitted")
 	conversation_node.set_position(Vector2(132,425))
@@ -45,7 +45,7 @@ func launch_conversation_panel(tourist, destination_location):
 	add_child(conversation_node)
 	conversation_node.tourist = tourist
 	var destination_name = tilemap.name_of_tile(destination_location)
-	conversation_node.set_conversation_output(destination_name, destination_location, s)
+	conversation_node.set_conversation_output(starting_location, destination_name, destination_location, s)
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()

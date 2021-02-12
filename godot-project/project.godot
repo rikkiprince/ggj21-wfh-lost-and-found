@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Lost and Found - GGJ21"
-run/main_scene="res://TilemapTest.tscn"
+run/main_scene="res://HomeScreen.tscn"
 config/icon="res://icon.png"
 
 [rendering]

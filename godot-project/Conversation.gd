@@ -13,7 +13,7 @@ func _on_Speech_text_entered(new_text):
 	pop()
 	scroll_to_line(get_line_count()-1)
 	
-	if(["bye","good luck","arrive","destination"].has(new_text)):
+	if(["","bye","good luck","arrive","destination"].has(new_text)):
 		print("End of directions")
 		print(directions)
 		conversation_panel.directions_submitted(directions)

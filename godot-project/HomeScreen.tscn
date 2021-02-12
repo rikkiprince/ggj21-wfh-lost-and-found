@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://HomeScreen.gd" type="Script" id=1]
+[ext_resource path="res://ou-est-la-bibliotheque-title.png" type="Texture" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 601.0
+color = Color( 0.996078, 0.988235, 0.972549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 416.191
+margin_top = 287.107
+margin_right = 561.191
+margin_bottom = 351.107
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 510.459, 49.6579 )
+scale = Vector2( 0.591525, 0.591525 )
+texture = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 40.2132
+margin_top = 119.451
+margin_right = 239.213
+margin_bottom = 271.451
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Hello there!
+
+This game jam game is not quite finished. Sorry!"
+text = "Hello there!
+
+This game jam game is not quite finished. Sorry!"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

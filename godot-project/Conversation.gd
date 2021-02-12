@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-onready var conversation_panel = find_parent("ConversationPanel")
+onready var conversation_panel = get_parent().get_parent().get_parent() #find_parent("ConversationPanel")
 var directions = []
 
 func _on_Speech_text_entered(new_text):

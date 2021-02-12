@@ -9,6 +9,7 @@ var position_on_map = Vector2()
 var direction = Vector2()
 
 signal tourist_arrived(tourist)
+signal ran_out_of_directions(tourist)
 
 const N = Vector2(0,-1)
 const S = Vector2(0,1)
@@ -24,6 +25,8 @@ var destination = Vector2(18,11)
 
 var compass_directions_regex
 var relative_directions_regex
+
+var starting_location
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,6 +77,7 @@ func convert_direction_text_to_vector(current_direction, direction_text):
 			return self.get(new_compass_direction)
 		else:
 			print("ERROR: Could not find vector for compass direction "+str(new_compass_direction))
+			#emit_signal("ran_out_of_directions",self)
 	else:
 		var relative_match = relative_directions_regex.search(direction_text)
 		if(relative_match):
@@ -84,6 +88,9 @@ func convert_direction_text_to_vector(current_direction, direction_text):
 				return relative_to_compass(current_direction, relative_direction)
 		else:
 			print("WARNING: Unknown direction "+str(direction_text))
+			#emit_signal("ran_out_of_directions",self)
+	
+	emit_signal("ran_out_of_directions",self)
 	return STOOD_STILL # TODO: Make this "straight"?
 
 func get_next_direction(current_direction):
@@ -91,6 +98,7 @@ func get_next_direction(current_direction):
 	print("\n---\n")
 	print("= Processing: '"+direction_text+"'")
 	if(direction_text == null or direction_text == ""):
+		emit_signal("ran_out_of_directions", self)
 		return STOOD_STILL # pick_random_direction() ?
 	
 	var new_direction = convert_direction_text_to_vector(current_direction, direction_text)
@@ -98,7 +106,10 @@ func get_next_direction(current_direction):
 		return new_direction
 	else:
 		print("New direction "+str(new_direction)+" is not possible.")
+		emit_signal("ran_out_of_directions",self)
+		return STOOD_STILL
 	
+	emit_signal("ran_out_of_directions",self)
 	return STOOD_STILL # pick_random_direction()
 
 func next_cell_valid(new_direction):

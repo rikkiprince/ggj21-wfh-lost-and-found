@@ -89,7 +89,7 @@ Your task is to type [b]directions[/b] in the [b]conversation box[/b]. A blank l
 
 You will then watch them follow your directions.
 [indent]- If they arrive, you'll get a new tourist.
-- If they run out of instructions or wander off the map, you'll get another go.[/indent]
+- If they run out of instructions, you'll get another go.[/indent]
 "
 text = "The aim of this game is to help tourists get to their destination by giving them directions.
 
@@ -99,7 +99,7 @@ Your task is to type directions in the conversation box. A blank line or \"bye\"
 
 You will then watch them follow your directions.
 	- If they arrive, you'll get a new tourist.
-- If they run out of instructions or wander off the map, you'll get another go.
+- If they run out of instructions, you'll get another go.
 "
 __meta__ = {
 "_edit_use_anchors_": false

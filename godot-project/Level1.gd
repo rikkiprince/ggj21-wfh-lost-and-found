@@ -13,8 +13,8 @@ func _ready():
 	#randomize()
 	#var new_seed = randi()
 	#print("SEED: "+str(new_seed))
-	#rng.randomize()
-	rng.seed = 1366326005678505183 #1882199055
+	rng.randomize()
+	#rng.seed = 1366326005678505183 #1882199055
 	s = rng.seed
 	print("SEED: "+str(s))
 	new_tourist()
@@ -31,8 +31,10 @@ func place_new_tourist_at(starting_location, destination_cell):
 	var tourist_node = tourist_scene.instance()
 	tourist_node.position = world_coords
 	tourist_node.list_of_directions = ["south","left","straight"]
+	tourist_node.starting_location = starting_location
 	tourist_node.destination = destination_cell
 	tourist_node.connect("tourist_arrived", self, "_on_Tourist_tourist_arrived")
+	tourist_node.connect("ran_out_of_directions", self, "_on_Tourist_ran_out_of_directions")
 	add_child(tourist_node)
 	return tourist_node
 
@@ -49,7 +51,15 @@ func launch_conversation_panel(tourist, starting_location, destination_location)
 
 func _on_Tourist_tourist_arrived(tourist):
 	tourist.queue_free()
+	#rng.randi()
+	#rng.randi()
 	new_tourist()
+
+func _on_Tourist_ran_out_of_directions(tourist):
+	var new_tourist = place_new_tourist_at(tourist.starting_location, tourist.destination)
+	launch_conversation_panel(new_tourist, tourist.starting_location, tourist.destination)
+	tourist.queue_free()
+	
 
 enum Tiles {
 	HORIZONTAL_ROAD,
